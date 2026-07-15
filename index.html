@@ -4,372 +4,474 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MED70 ROADMAP</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --surface2: #161616;
-    --glass: rgba(255,255,255,0.04);
-    --glass-border: rgba(255,255,255,0.08);
-    --mint: #22c55e;
-    --mint-dim: rgba(34,197,94,0.15);
-    --mint-glow: rgba(34,197,94,0.3);
-    --text: #f0f0f0;
-    --text-muted: #666;
-    --text-dim: #999;
-    --red: #ef4444;
-    --yellow: #eab308;
-    --blue: #3b82f6;
-    --purple: #a855f7;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Kanit', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+:root {
+  --bg: #080808;
+  --surface: #0f0f0f;
+  --surface2: #141414;
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+  --mint: #22c55e;
+  --mint-dim: rgba(34,197,94,0.1);
+  --mint-glow: rgba(34,197,94,0.25);
+  --text: #ededed;
+  --text-2: #888;
+  --text-3: #444;
+  --red: #ff4d4d;
+  --yellow: #f5c518;
+  --blue: #4f8ef7;
+  --purple: #b57bee;
+  --orange: #ff8c42;
+  --cyan: #22d3ee;
+  --r: 6px;
+  --r-lg: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Space Grotesk', 'Kanit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--mint); color: #000; }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--mint-dim); }
 
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--mint-dim); border-radius: 2px; }
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(24px) saturate(1.2);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 800; font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--mint);
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--text-2); font-weight: 300; }
+.nav-links {
+  display: flex; gap: 2px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 5px 12px; border-radius: 4px; border: none;
+  background: transparent; color: var(--text-2);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.03em;
+  cursor: pointer; white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+  text-transform: uppercase;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--mint); background: var(--mint-dim); }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,10,0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 24px; height: 56px;
-  }
-  .nav-logo {
-    font-size: 1.1rem; font-weight: 700; color: var(--mint);
-    letter-spacing: 0.05em;
-  }
-  .nav-tabs {
-    display: flex; gap: 4px;
-    overflow-x: auto; scrollbar-width: none;
-  }
-  .nav-tabs::-webkit-scrollbar { display: none; }
-  .nav-tab {
-    padding: 6px 14px; border-radius: 8px; border: none;
-    background: transparent; color: var(--text-muted);
-    font-family: 'Kanit', sans-serif; font-size: 0.78rem;
-    cursor: pointer; white-space: nowrap; transition: all 0.2s;
-  }
-  .nav-tab:hover { color: var(--text); background: var(--glass); }
-  .nav-tab.active { color: var(--mint); background: var(--mint-dim); }
+main { padding-top: 52px; }
 
-  /* MAIN LAYOUT */
-  main { padding-top: 56px; }
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0 24px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-noise {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
+  opacity: 0.6;
+}
+.hero-line {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(34,197,94,0.3) 40%, transparent);
+}
+.hero-glow {
+  position: absolute; top: 30%; left: 50%; transform: translate(-50%,-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(34,197,94,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-main {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-top: 80px;
+}
+.hero-eyebrow {
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--mint);
+  margin-bottom: 28px;
+  display: flex; align-items: center; gap: 12px;
+  animation: up 0.7s ease both;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--mint);
+}
+.hero-title {
+  font-family: 'Kanit', sans-serif;
+  font-size: clamp(4.5rem, 13vw, 10rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  animation: up 0.7s 0.08s ease both;
+}
+.hero-title .accent { color: var(--mint); }
+.hero-title .thin { font-weight: 200; color: var(--text-2); }
+.hero-sub {
+  margin-top: 28px;
+  font-size: 1rem; color: var(--text-2); font-weight: 400;
+  max-width: 400px; line-height: 1.6;
+  animation: up 0.7s 0.16s ease both;
+}
 
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 40px 24px;
-    position: relative; overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(34,197,94,0.06) 0%, transparent 70%);
-  }
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
-  }
-  .hero-content { position: relative; text-align: center; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 16px; border-radius: 999px;
-    border: 1px solid var(--glass-border);
-    background: var(--glass); backdrop-filter: blur(10px);
-    font-size: 0.75rem; color: var(--mint); margin-bottom: 32px;
-    animation: fadeUp 0.6s ease both;
-  }
-  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
-  .hero-title {
-    font-size: clamp(3rem, 10vw, 7rem); font-weight: 700;
-    line-height: 0.95; letter-spacing: -0.02em;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-  .hero-title span { color: var(--mint); }
-  .hero-sub {
-    font-size: 1.1rem; color: var(--text-muted); margin-top: 20px; font-weight: 300;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.hero-cta {
+  margin-top: 40px;
+  display: flex; gap: 12px; flex-wrap: wrap;
+  animation: up 0.7s 0.22s ease both;
+}
+.btn-primary {
+  padding: 11px 28px; border-radius: var(--r); border: none; cursor: pointer;
+  background: var(--mint); color: #000;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+  font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: #16a34a; transform: translateY(-1px); }
+.btn-ghost {
+  padding: 11px 28px; border-radius: var(--r);
+  border: 1px solid var(--border); background: transparent; cursor: pointer;
+  color: var(--text-2);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+  font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
 
-  /* COUNTDOWN */
-  .countdown-section {
-    display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;
-    margin-top: 48px;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
-  .countdown-card {
-    background: var(--glass); backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border); border-radius: 16px;
-    padding: 20px 28px; min-width: 200px; text-align: center;
-    transition: border-color 0.3s;
-  }
-  .countdown-card:hover { border-color: var(--mint-glow); }
-  .countdown-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
-  .countdown-time { display: flex; gap: 8px; justify-content: center; align-items: baseline; }
-  .countdown-unit { text-align: center; }
-  .countdown-num { font-size: 2rem; font-weight: 700; color: var(--mint); line-height: 1; display: block; }
-  .countdown-unit-label { font-size: 0.6rem; color: var(--text-muted); }
-  .countdown-sep { color: var(--text-muted); font-size: 1.5rem; line-height: 1.2; }
-  .countdown-note { font-size: 0.65rem; color: var(--text-muted); margin-top: 16px; opacity: 0.7; }
+@keyframes up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-  /* SECTION */
-  .section {
-    max-width: 1200px; margin: 0 auto; padding: 80px 24px;
-  }
-  .section-header { margin-bottom: 32px; }
-  .section-eyebrow { font-size: 0.7rem; color: var(--mint); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
-  .section-title { font-size: 1.8rem; font-weight: 600; }
+/* ── COUNTDOWN ── */
+.countdown-strip {
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+  animation: up 0.7s 0.3s ease both;
+}
+.cd-block {
+  background: var(--bg); padding: 24px 28px;
+  position: relative; overflow: hidden;
+  transition: background 0.2s;
+}
+.cd-block:hover { background: var(--surface); }
+.cd-label {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-2); margin-bottom: 16px; font-weight: 500;
+}
+.cd-date {
+  font-size: 0.72rem; color: var(--mint);
+  font-weight: 600; letter-spacing: 0.05em; margin-bottom: 16px;
+}
+.cd-time {
+  display: flex; align-items: baseline; gap: 2px;
+}
+.cd-num {
+  font-family: 'Kanit', sans-serif;
+  font-size: 2.6rem; font-weight: 700; line-height: 1;
+  color: var(--text);
+}
+.cd-unit {
+  font-size: 0.6rem; color: var(--text-3); letter-spacing: 0.1em;
+  text-transform: uppercase; margin: 0 8px 0 2px; align-self: flex-end; padding-bottom: 4px;
+}
+.cd-accent {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--mint), transparent);
+  opacity: 0; transition: opacity 0.2s;
+}
+.cd-block:hover .cd-accent { opacity: 1; }
+.cd-note {
+  grid-column: 1/-1; background: var(--bg);
+  padding: 12px 28px;
+  font-size: 0.65rem; color: var(--text-3);
+  letter-spacing: 0.05em; border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.cd-note::before {
+  content: 'OFFICIAL';
+  padding: 2px 6px; border-radius: 3px;
+  background: var(--mint-dim); color: var(--mint);
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
 
-  /* GLASS CARD */
-  .glass-card {
-    background: var(--glass); backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border); border-radius: 16px;
-    padding: 24px;
-  }
-  .glass-card:hover { border-color: rgba(255,255,255,0.12); }
+/* ── SECTION ── */
+.section { max-width: 1160px; margin: 0 auto; padding: 80px 24px; }
+.sec-head { margin-bottom: 40px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.sec-eyebrow { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
+.sec-title {
+  font-family: 'Kanit', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700; line-height: 1; letter-spacing: -0.02em;
+}
 
-  /* DASHBOARD GRID */
-  .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); }
 
-  /* PROGRESS BAR */
-  .subject-card {
-    background: var(--glass); border: 1px solid var(--glass-border);
-    border-radius: 12px; padding: 16px; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .subject-card:hover { border-color: var(--mint-dim); transform: translateY(-2px); }
-  .subject-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .subject-name { font-size: 0.9rem; font-weight: 500; }
-  .subject-pct { font-size: 0.85rem; color: var(--mint); font-weight: 600; }
-  .progress-bar { height: 6px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
-  .progress-fill {
-    height: 100%; background: linear-gradient(90deg, var(--mint), #16a34a);
-    border-radius: 999px; transition: width 0.8s cubic-bezier(.4,0,.2,1);
-  }
-  .subject-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; }
+/* ── CARD ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border-hover); }
+.card-pad { padding: 20px; }
 
-  /* STUDY PLANNER */
-  .planner-tabs { display: flex; gap: 4px; margin-bottom: 20px; }
-  .planner-tab {
-    padding: 6px 16px; border-radius: 8px; border: none;
-    background: transparent; color: var(--text-muted);
-    font-family: 'Kanit', sans-serif; font-size: 0.8rem; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .planner-tab.active { background: var(--mint-dim); color: var(--mint); }
-  .planner-view { display: none; }
-  .planner-view.active { display: block; }
+/* ── DASHBOARD ── */
+.subj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px; background: var(--border); border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); }
+.subj-card {
+  background: var(--surface); padding: 22px 24px; cursor: pointer;
+  transition: background 0.15s; position: relative;
+}
+.subj-card:hover { background: var(--surface2); }
+.subj-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.subj-name { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; }
+.subj-pct { font-size: 1.3rem; font-weight: 700; font-family: 'Kanit', sans-serif; }
+.subj-bar { height: 3px; background: var(--border); border-radius: 1px; margin-bottom: 10px; overflow: hidden; }
+.subj-fill { height: 100%; border-radius: 1px; transition: width 0.8s cubic-bezier(.4,0,.2,1); }
+.subj-meta { font-size: 0.65rem; color: var(--text-3); letter-spacing: 0.04em; }
 
-  .day-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-  .day-nav button {
-    width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--glass-border);
-    background: var(--glass); color: var(--text); cursor: pointer; font-size: 1rem;
-    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-  }
-  .day-nav button:hover { border-color: var(--mint); color: var(--mint); }
-  .day-nav-title { font-size: 1rem; font-weight: 500; }
+/* ── GOAL BAR ── */
+.goal-wrap { border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin-top: 16px; }
+.goal-inner { padding: 28px 32px; }
+.goal-nums { display: flex; gap: 40px; margin-bottom: 24px; flex-wrap: wrap; }
+.goal-num { }
+.goal-big { font-family: 'Kanit', sans-serif; font-size: 3rem; font-weight: 800; line-height: 1; color: var(--mint); }
+.goal-big.dim { color: var(--text-3); }
+.goal-lbl { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-top: 4px; }
+.goal-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+.goal-prog { height: 100%; background: var(--mint); border-radius: 2px; transition: width 1s ease; }
+.goal-meta { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-3); letter-spacing: 0.05em; }
 
-  .schedule-slot {
-    display: flex; align-items: center; gap: 16px; padding: 12px 0;
-    border-bottom: 1px solid var(--glass-border);
-  }
-  .slot-time { font-size: 0.75rem; color: var(--text-muted); min-width: 80px; font-weight: 300; }
-  .slot-block {
-    flex: 1; padding: 10px 16px; border-radius: 10px;
-    border-left: 3px solid;
-    font-size: 0.85rem; font-weight: 400;
-  }
-  .slot-block.bio { border-color: var(--mint); background: rgba(34,197,94,0.08); }
-  .slot-block.chem { border-color: var(--blue); background: rgba(59,130,246,0.08); }
-  .slot-block.phys { border-color: var(--yellow); background: rgba(234,179,8,0.08); }
-  .slot-block.math { border-color: var(--purple); background: rgba(168,85,247,0.08); }
-  .slot-block.eng { border-color: var(--red); background: rgba(239,68,68,0.08); }
-  .slot-block.thai { border-color: #f97316; background: rgba(249,115,22,0.08); }
-  .slot-block.rest { border-color: var(--text-muted); background: transparent; color: var(--text-muted); }
+/* ── PLANNER ── */
+.tab-row { display: flex; gap: 1px; background: var(--border); border-radius: var(--r); overflow: hidden; width: fit-content; margin-bottom: 24px; }
+.tab-item {
+  padding: 7px 18px; border: none; background: var(--surface);
+  color: var(--text-2); font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.15s;
+}
+.tab-item.active { background: var(--mint); color: #000; }
+.tab-item:hover:not(.active) { background: var(--surface2); color: var(--text); }
+.plan-view { display: none; }
+.plan-view.active { display: block; }
 
-  /* CHECKLIST */
-  .checklist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-  .checklist-subject { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; padding: 20px; }
-  .checklist-subject-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
-  .subject-dot { width: 8px; height: 8px; border-radius: 50%; }
-  .checklist-progress-text { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 14px; }
-  .checklist-items { display: flex; flex-direction: column; gap: 6px; }
-  .check-item {
-    display: flex; align-items: center; gap: 10px; padding: 7px 10px;
-    border-radius: 8px; cursor: pointer; transition: background 0.15s;
-  }
-  .check-item:hover { background: var(--glass); }
-  .check-item input[type=checkbox] { display: none; }
-  .check-box {
-    width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--glass-border);
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    transition: all 0.2s; font-size: 10px;
-  }
-  .check-item.checked .check-box { background: var(--mint); border-color: var(--mint); }
-  .check-item.checked .check-label { color: var(--text-muted); text-decoration: line-through; }
-  .check-label { font-size: 0.82rem; }
+.day-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+.day-arrow {
+  width: 32px; height: 32px; border-radius: var(--r); border: 1px solid var(--border);
+  background: transparent; color: var(--text-2); cursor: pointer; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+  font-family: monospace;
+}
+.day-arrow:hover { border-color: var(--mint); color: var(--mint); }
+.day-lbl { font-size: 0.9rem; font-weight: 600; }
 
-  /* EXAM SCHEDULE */
-  .exam-timeline { display: flex; flex-direction: column; gap: 0; }
-  .exam-item {
-    display: flex; gap: 20px; padding: 20px 0;
-    border-bottom: 1px solid var(--glass-border); align-items: flex-start;
-  }
-  .exam-date { min-width: 100px; }
-  .exam-date-main { font-size: 1.1rem; font-weight: 600; color: var(--mint); }
-  .exam-date-sub { font-size: 0.7rem; color: var(--text-muted); }
-  .exam-info { flex: 1; }
-  .exam-name { font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; }
-  .exam-desc { font-size: 0.75rem; color: var(--text-muted); }
-  .exam-countdown-pill {
-    padding: 4px 12px; border-radius: 999px; background: var(--mint-dim);
-    color: var(--mint); font-size: 0.7rem; white-space: nowrap;
-    border: 1px solid rgba(34,197,94,0.2);
-  }
+.sched-list { display: flex; flex-direction: column; }
+.sched-row {
+  display: grid; grid-template-columns: 100px 1fr;
+  gap: 16px; padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.sched-time { font-size: 0.68rem; color: var(--text-3); letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+.sched-block {
+  padding: 10px 14px; border-radius: var(--r);
+  border-left: 2px solid; font-size: 0.8rem; font-weight: 500;
+}
+.sched-block.bio   { border-color: var(--mint);   background: rgba(34,197,94,0.06); }
+.sched-block.chem  { border-color: var(--blue);   background: rgba(79,142,247,0.06); }
+.sched-block.phys  { border-color: var(--yellow); background: rgba(245,197,24,0.06); }
+.sched-block.math  { border-color: var(--purple); background: rgba(181,123,238,0.06); }
+.sched-block.eng   { border-color: var(--red);    background: rgba(255,77,77,0.06); }
+.sched-block.thai  { border-color: var(--orange); background: rgba(255,140,66,0.06); }
+.sched-block.rest  { border-color: var(--text-3); color: var(--text-3); background: transparent; }
 
-  /* YOUTUBE */
-  .yt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
-  .yt-card {
-    background: var(--glass); border: 1px solid var(--glass-border);
-    border-radius: 12px; padding: 16px; cursor: pointer;
-    transition: all 0.2s; text-decoration: none; color: inherit; display: block;
-  }
-  .yt-card:hover { border-color: #ff0000; transform: translateY(-2px); background: rgba(255,0,0,0.04); }
-  .yt-icon { width: 36px; height: 36px; background: #ff0000; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
-  .yt-icon svg { fill: white; width: 18px; }
-  .yt-channel { font-size: 0.85rem; font-weight: 500; margin-bottom: 4px; }
-  .yt-subject { font-size: 0.7rem; color: var(--text-muted); }
-  .yt-section-title { font-size: 1rem; font-weight: 600; margin: 24px 0 12px; color: var(--mint); display: flex; align-items: center; gap: 8px; }
-  .yt-section-title::after { content: ''; flex: 1; height: 1px; background: var(--glass-border); }
+/* ── CHECKLIST ── */
+.cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(256px, 1fr)); gap: 12px; }
+.cl-card {
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  overflow: hidden; transition: border-color 0.2s;
+}
+.cl-card:hover { border-color: var(--border-hover); }
+.cl-head { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.cl-title { font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 8px; letter-spacing: 0.02em; margin-bottom: 10px; }
+.cl-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.cl-prog-bar { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+.cl-prog-fill { height: 100%; border-radius: 1px; }
+.cl-prog-txt { font-size: 0.62rem; color: var(--text-3); letter-spacing: 0.08em; margin-top: 6px; text-transform: uppercase; }
+.cl-items { padding: 8px 12px; }
+.cl-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 8px; border-radius: 6px; cursor: pointer;
+  transition: background 0.12s; user-select: none;
+}
+.cl-item:hover { background: var(--surface2); }
+.cl-box {
+  width: 15px; height: 15px; border-radius: 3px;
+  border: 1.5px solid var(--text-3); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; font-size: 9px; font-weight: 700;
+}
+.cl-item.done .cl-box { border-color: var(--mint); background: var(--mint); color: #000; }
+.cl-item.done .cl-txt { color: var(--text-3); text-decoration: line-through; text-decoration-color: var(--text-3); }
+.cl-txt { font-size: 0.78rem; line-height: 1.3; }
 
-  /* TIMER */
-  .timer-section { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-  .timer-ring-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-  .timer-svg { transform: rotate(-90deg); }
-  .timer-bg { fill: none; stroke: var(--glass-border); }
-  .timer-arc { fill: none; stroke: var(--mint); stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
-  .timer-center {
-    position: absolute; text-align: center;
-  }
-  .timer-display { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.02em; }
-  .timer-mode { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; }
-  .timer-controls { display: flex; gap: 12px; }
-  .timer-btn {
-    padding: 10px 28px; border-radius: 10px; border: none; cursor: pointer;
-    font-family: 'Kanit', sans-serif; font-size: 0.9rem; font-weight: 500;
-    transition: all 0.2s;
-  }
-  .timer-btn.primary { background: var(--mint); color: #000; }
-  .timer-btn.primary:hover { background: #16a34a; }
-  .timer-btn.secondary { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); }
-  .timer-btn.secondary:hover { border-color: var(--text-muted); }
-  .timer-sessions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-  .session-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--mint); }
-  .session-dot.done { background: var(--mint); }
-  .today-summary {
-    background: var(--glass); border: 1px solid var(--glass-border);
-    border-radius: 12px; padding: 16px 24px;
-    display: flex; gap: 32px; align-items: center; flex-wrap: wrap; justify-content: center;
-  }
-  .summary-item { text-align: center; }
-  .summary-num { font-size: 1.6rem; font-weight: 700; color: var(--mint); }
-  .summary-label { font-size: 0.7rem; color: var(--text-muted); }
+/* ── SCHEDULE ── */
+.exam-list { display: flex; flex-direction: column; }
+.exam-row {
+  display: grid; grid-template-columns: 140px 1fr auto;
+  gap: 20px; padding: 20px 0;
+  border-bottom: 1px solid var(--border); align-items: center;
+}
+.exam-row:first-child { border-top: 1px solid var(--border); }
+.exam-d-main { font-size: 0.72rem; font-weight: 700; color: var(--mint); letter-spacing: 0.05em; margin-bottom: 2px; }
+.exam-d-year { font-size: 0.62rem; color: var(--text-3); letter-spacing: 0.05em; }
+.exam-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; }
+.exam-desc { font-size: 0.72rem; color: var(--text-2); }
+.exam-pill {
+  padding: 5px 12px; border-radius: 3px;
+  background: var(--mint-dim); color: var(--mint);
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+  border: 1px solid rgba(34,197,94,0.15); white-space: nowrap; text-transform: uppercase;
+}
+.exam-pill.past {
+  background: rgba(255,77,77,0.06); color: var(--text-3);
+  border-color: var(--border);
+}
 
-  /* STATS */
-  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-  .stat-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; padding: 20px; }
-  .stat-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
-  .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
-  .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .bar { background: var(--mint-dim); border-radius: 4px 4px 0 0; width: 100%; min-height: 4px; border: 1px solid rgba(34,197,94,0.2); transition: all 0.3s; }
-  .bar:hover { background: var(--mint-glow); }
-  .bar-label { font-size: 0.6rem; color: var(--text-muted); }
+/* ── YOUTUBE ── */
+.yt-section-head {
+  font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-3); padding: 20px 0 12px;
+  border-bottom: 1px solid var(--border); margin-bottom: 12px;
+  font-weight: 600;
+}
+.yt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.yt-card {
+  display: block; text-decoration: none; color: inherit;
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 16px; transition: all 0.2s; background: var(--surface);
+}
+.yt-card:hover { border-color: #ff4040; background: rgba(255,64,64,0.04); transform: translateY(-2px); }
+.yt-bar { width: 28px; height: 3px; background: #ff0000; border-radius: 1px; margin-bottom: 14px; }
+.yt-name { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+.yt-sub-lbl { font-size: 0.65rem; color: var(--text-3); letter-spacing: 0.06em; }
 
-  /* GOAL */
-  .goal-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; padding: 28px; }
-  .goal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
-  .goal-title { font-size: 1rem; font-weight: 600; }
-  .goal-edit { padding: 4px 12px; border-radius: 6px; border: 1px solid var(--glass-border); background: transparent; color: var(--text-muted); font-family: 'Kanit', sans-serif; font-size: 0.75rem; cursor: pointer; }
-  .goal-numbers { display: flex; gap: 24px; margin-bottom: 20px; flex-wrap: wrap; }
-  .goal-num-item { }
-  .goal-big { font-size: 2.4rem; font-weight: 700; color: var(--mint); line-height: 1; }
-  .goal-small-label { font-size: 0.7rem; color: var(--text-muted); }
-  .goal-bar-wrap { margin-bottom: 12px; }
-  .goal-bar { height: 10px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
-  .goal-bar-fill { height: 100%; background: linear-gradient(90deg, var(--mint), #16a34a); border-radius: 999px; }
-  .goal-bar-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); }
+/* ── TIMER ── */
+.timer-wrap { max-width: 420px; margin: 0 auto; }
+.timer-modes { display: flex; gap: 1px; background: var(--border); border-radius: var(--r); overflow: hidden; width: 100%; margin-bottom: 32px; }
+.mode-btn {
+  flex: 1; padding: 9px; border: none; background: var(--surface);
+  color: var(--text-2); font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.15s;
+}
+.mode-btn.active { background: var(--mint); color: #000; }
+.mode-btn:hover:not(.active) { background: var(--surface2); }
 
-  /* NOTIFICATIONS */
-  .notif-list { display: flex; flex-direction: column; gap: 10px; }
-  .notif-item {
-    display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px;
-    background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px;
-  }
-  .notif-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-  .notif-icon.green { background: var(--mint-dim); }
-  .notif-icon.yellow { background: rgba(234,179,8,0.15); }
-  .notif-icon.red { background: rgba(239,68,68,0.15); }
-  .notif-body {}
-  .notif-title { font-size: 0.85rem; font-weight: 500; margin-bottom: 2px; }
-  .notif-desc { font-size: 0.75rem; color: var(--text-muted); }
+.timer-ring-outer { position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 32px; }
+.timer-svg { transform: rotate(-90deg); }
+.t-bg { fill: none; stroke: var(--border); }
+.t-arc { fill: none; stroke: var(--mint); stroke-linecap: butt; transition: stroke-dashoffset 1s linear; }
+.timer-inner { position: absolute; text-align: center; }
+.timer-time {
+  font-family: 'Kanit', sans-serif;
+  font-size: 3.2rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1;
+}
+.timer-state { font-size: 0.62rem; color: var(--text-3); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 6px; }
+.timer-btns { display: flex; gap: 10px; margin-bottom: 28px; }
+.timer-btns .btn-primary { flex: 1; }
+.timer-btns .btn-ghost { flex: 0 0 auto; }
 
-  /* MOBILE */
-  @media (max-width: 640px) {
-    .nav-tab { font-size: 0.7rem; padding: 5px 10px; }
-    .hero-title { font-size: 3.5rem; }
-    .countdown-section { gap: 10px; }
-    .countdown-card { min-width: 140px; padding: 14px 16px; }
-    .countdown-num { font-size: 1.5rem; }
-    .section { padding: 60px 16px; }
-    .exam-item { flex-direction: column; gap: 10px; }
-    .today-summary { gap: 20px; }
-  }
+.pomodoro-dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 28px; }
+.p-dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--text-3); transition: all 0.2s; }
+.p-dot.done { background: var(--mint); border-color: var(--mint); }
 
-  /* DIVIDER */
-  .divider { height: 1px; background: var(--glass-border); margin: 0 24px; }
+.today-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); }
+.today-cell { background: var(--surface); padding: 18px; text-align: center; }
+.today-num { font-family: 'Kanit', sans-serif; font-size: 2rem; font-weight: 700; color: var(--mint); }
+.today-lbl { font-size: 0.6rem; color: var(--text-3); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
 
-  /* TAG */
-  .tag {
-    display: inline-flex; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;
-    background: var(--mint-dim); color: var(--mint); border: 1px solid rgba(34,197,94,0.2);
-  }
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.chart-card { border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; background: var(--surface); }
+.chart-title { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 20px; }
+.bar-row { display: flex; align-items: flex-end; gap: 8px; height: 72px; }
+.b-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.b-bar { width: 100%; background: var(--mint-dim); border-radius: 3px 3px 0 0; border: 1px solid rgba(34,197,94,0.15); min-height: 3px; transition: height 0.3s; cursor: pointer; }
+.b-bar:hover { background: var(--mint-glow); }
+.b-lbl { font-size: 0.58rem; color: var(--text-3); letter-spacing: 0.04em; }
 
-  /* HIDDEN SECTIONS */
-  .page { display: none; }
-  .page.active { display: block; }
+/* ── NOTIFS ── */
+.notif-list { display: flex; flex-direction: column; gap: 8px; }
+.notif-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); }
+.notif-tag { padding: 3px 8px; border-radius: 3px; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; flex-shrink: 0; }
+.notif-tag.green { background: var(--mint-dim); color: var(--mint); }
+.notif-tag.yellow { background: rgba(245,197,24,0.1); color: var(--yellow); }
+.notif-tag.red { background: rgba(255,77,77,0.1); color: var(--red); }
+.notif-body { }
+.notif-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
+.notif-desc { font-size: 0.7rem; color: var(--text-2); }
+
+/* ── PAGE TOGGLE ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+  .countdown-strip { grid-template-columns: 1fr; }
+  .cd-note { grid-column: auto; }
+  .hero-title { font-size: 4rem; }
+  .exam-row { grid-template-columns: 1fr; gap: 8px; }
+  .exam-pill { width: fit-content; }
+  .section { padding: 60px 16px; }
+  .goal-nums { gap: 24px; }
+}
+
+/* ── MARQUEE decorative ── */
+.marquee-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 10px 0; margin-top: -1px; }
+.marquee-inner { display: flex; gap: 0; animation: marquee 20s linear infinite; white-space: nowrap; }
+.marquee-inner span { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); padding: 0 32px; }
+.marquee-inner span.acc { color: var(--mint); }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">MED70</div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('home')">🏠 หน้าหลัก</button>
-    <button class="nav-tab" onclick="showPage('dashboard')">📊 Dashboard</button>
-    <button class="nav-tab" onclick="showPage('planner')">📅 ตารางอ่าน</button>
-    <button class="nav-tab" onclick="showPage('checklist')">✅ Checklist</button>
-    <button class="nav-tab" onclick="showPage('schedule')">🗓 กำหนดการ</button>
-    <button class="nav-tab" onclick="showPage('youtube')">▶️ YouTube</button>
-    <button class="nav-tab" onclick="showPage('timer')">⏱ Timer</button>
-    <button class="nav-tab" onclick="showPage('stats')">📈 สถิติ</button>
+  <div class="nav-logo">MED<span>70</span></div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" onclick="showPage('dashboard')">Dashboard</button>
+    <button class="nav-btn" onclick="showPage('planner')">Planner</button>
+    <button class="nav-btn" onclick="showPage('checklist')">Checklist</button>
+    <button class="nav-btn" onclick="showPage('schedule')">Schedule</button>
+    <button class="nav-btn" onclick="showPage('youtube')">Resources</button>
+    <button class="nav-btn" onclick="showPage('timer')">Timer</button>
+    <button class="nav-btn" onclick="showPage('stats')">Stats</button>
   </div>
 </nav>
 
@@ -378,107 +480,116 @@
 <!-- HOME -->
 <div id="home" class="page active">
   <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-content">
-      <div class="hero-badge"><span class="badge-dot"></span>TCAS70 · ปีการศึกษา 2570</div>
-      <h1 class="hero-title">MED<span>70</span><br>ROADMAP</h1>
-      <p class="hero-sub">วางแผนสอบแพทย์ TCAS70 อย่างเป็นระบบ</p>
+    <div class="hero-noise"></div>
+    <div class="hero-line"></div>
+    <div class="hero-glow"></div>
 
-      <div class="countdown-section">
-        <div class="countdown-card">
-          <div class="countdown-label">🧠 TPAT1 วิชาความถนัดแพทย์</div>
-          <div class="countdown-time" id="cd-tpat1"></div>
-          <div style="font-size:0.65rem;color:var(--mint);margin-top:8px">13 ก.พ. 2570</div>
-        </div>
-        <div class="countdown-card">
-          <div class="countdown-label">📚 A-Level วิชาสามัญ</div>
-          <div class="countdown-time" id="cd-alevel"></div>
-          <div style="font-size:0.65rem;color:var(--mint);margin-top:8px">13-15 มี.ค. 2570</div>
-        </div>
-        <div class="countdown-card">
-          <div class="countdown-label">📝 สมัครสอบ TGAT/TPAT 2-5</div>
-          <div class="countdown-time" id="cd-apply"></div>
-          <div style="font-size:0.65rem;color:var(--mint);margin-top:8px">4-10 พ.ย. 2569</div>
-        </div>
+    <div class="hero-main">
+      <div class="hero-eyebrow">TCAS70 — ปีการศึกษา 2570</div>
+      <h1 class="hero-title">
+        <span class="accent">MED</span><span class="thin">70</span><br>
+        ROAD<span class="accent">MAP</span>
+      </h1>
+      <p class="hero-sub">วางแผนสอบแพทย์ TCAS70 อย่างเป็นระบบ<br>ตั้งแต่วันแรกจนถึงวันสอบ</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="showPage('dashboard')">เริ่มต้น</button>
+        <button class="btn-ghost" onclick="showPage('schedule')">ดูกำหนดการ</button>
       </div>
-      <p class="countdown-note" style="margin-top:20px;font-size:0.7rem;color:var(--text-muted);">
-        ✅ กำหนดการอย่างเป็นทางการจาก ทปอ. (ประกาศ เม.ย. 2569) — อ้างอิง mytcas.com
-      </p>
+    </div>
+
+    <div>
+      <div class="countdown-strip">
+        <div class="cd-block">
+          <div class="cd-label">TPAT1 — วิชาความถนัดแพทย์</div>
+          <div class="cd-date">13 กุมภาพันธ์ 2570</div>
+          <div class="cd-time" id="cd-tpat1"></div>
+          <div class="cd-accent"></div>
+        </div>
+        <div class="cd-block">
+          <div class="cd-label">A-Level — วิชาสามัญ</div>
+          <div class="cd-date">13–15 มีนาคม 2570</div>
+          <div class="cd-time" id="cd-alevel"></div>
+          <div class="cd-accent"></div>
+        </div>
+        <div class="cd-block">
+          <div class="cd-label">สมัครสอบ TGAT/TPAT 2-5</div>
+          <div class="cd-date">4–10 พฤศจิกายน 2569</div>
+          <div class="cd-time" id="cd-apply"></div>
+          <div class="cd-accent"></div>
+        </div>
+        <div class="cd-note">กำหนดการอย่างเป็นทางการจาก ทปอ. ประกาศเมษายน 2569 — อ้างอิง mytcas.com</div>
+      </div>
     </div>
   </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span class="acc">TPAT1</span><span>13 ก.พ. 70</span>
+      <span class="acc">A-LEVEL</span><span>13-15 มี.ค. 70</span>
+      <span class="acc">ADMISSION</span><span>7-11 พ.ค. 70</span>
+      <span class="acc">PORTFOLIO</span><span>15 ส.ค. 69</span>
+      <span class="acc">TGAT/TPAT</span><span>4-10 พ.ย. 69</span>
+      <span class="acc">MYTCAS</span><span>15 ก.ค. 69</span>
+      <span class="acc">TPAT1</span><span>13 ก.พ. 70</span>
+      <span class="acc">A-LEVEL</span><span>13-15 มี.ค. 70</span>
+      <span class="acc">ADMISSION</span><span>7-11 พ.ค. 70</span>
+      <span class="acc">PORTFOLIO</span><span>15 ส.ค. 69</span>
+      <span class="acc">TGAT/TPAT</span><span>4-10 พ.ย. 69</span>
+      <span class="acc">MYTCAS</span><span>15 ก.ค. 69</span>
+    </div>
+  </div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="page">
   <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow">Overview</div>
-      <h2 class="section-title">Progress การอ่าน</h2>
+    <div class="sec-head">
+      <div><div class="sec-eyebrow">Overview</div><h2 class="sec-title">Progress</h2></div>
     </div>
-    <div class="dash-grid" id="subject-grid"></div>
-
-    <div style="margin-top:32px">
-      <div class="goal-card">
-        <div class="goal-header">
-          <div class="goal-title">🎯 เป้าหมายรวม</div>
-          <button class="goal-edit" onclick="showPage('stats')">ดูสถิติ →</button>
+    <div class="subj-grid" id="subj-grid"></div>
+    <div class="goal-wrap" style="margin-top:16px">
+      <div class="goal-inner">
+        <div class="goal-nums">
+          <div class="goal-num"><div class="goal-big">315</div><div class="goal-lbl">ชั่วโมงที่อ่านแล้ว</div></div>
+          <div class="goal-num"><div class="goal-big dim">885</div><div class="goal-lbl">ชั่วโมงที่เหลือ</div></div>
+          <div class="goal-num"><div class="goal-big" style="color:var(--text-2)">1200</div><div class="goal-lbl">เป้าหมายรวม</div></div>
         </div>
-        <div class="goal-numbers">
-          <div class="goal-num-item"><div class="goal-big" id="dash-current">315</div><div class="goal-small-label">ชั่วโมงที่อ่านแล้ว</div></div>
-          <div class="goal-num-item"><div class="goal-big" style="color:var(--text-muted)">885</div><div class="goal-small-label">ชั่วโมงที่เหลือ</div></div>
-          <div class="goal-num-item"><div class="goal-big">1200</div><div class="goal-small-label">เป้าหมายรวม (ชั่วโมง)</div></div>
-        </div>
-        <div class="goal-bar-wrap">
-          <div class="goal-bar"><div class="goal-bar-fill" style="width:26.25%"></div></div>
-          <div class="goal-bar-labels"><span>0</span><span style="color:var(--mint)">26% สำเร็จ</span><span>1200</span></div>
-        </div>
+        <div class="goal-track"><div class="goal-prog" style="width:26.25%"></div></div>
+        <div class="goal-meta"><span>0 hr</span><span style="color:var(--mint);font-weight:600">26.25% complete</span><span>1200 hr</span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- STUDY PLANNER -->
+<!-- PLANNER -->
 <div id="planner" class="page">
   <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow">Study Planner</div>
-      <h2 class="section-title">ตารางอ่านหนังสือ</h2>
-    </div>
-    <div class="glass-card">
-      <div class="planner-tabs">
-        <button class="planner-tab active" onclick="switchPlanner('daily',this)">รายวัน</button>
-        <button class="planner-tab" onclick="switchPlanner('weekly',this)">รายสัปดาห์</button>
-        <button class="planner-tab" onclick="switchPlanner('monthly',this)">รายเดือน</button>
+    <div class="sec-head"><div><div class="sec-eyebrow">Study Planner</div><h2 class="sec-title">ตารางอ่านหนังสือ</h2></div></div>
+    <div class="card card-pad">
+      <div class="tab-row">
+        <button class="tab-item active" onclick="switchTab('daily',this)">รายวัน</button>
+        <button class="tab-item" onclick="switchTab('weekly',this)">รายสัปดาห์</button>
+        <button class="tab-item" onclick="switchTab('monthly',this)">รายเดือน</button>
       </div>
 
-      <div id="planner-daily" class="planner-view active">
+      <div id="plan-daily" class="plan-view active">
         <div class="day-nav">
-          <button onclick="changeDay(-1)">←</button>
-          <div class="day-nav-title" id="current-day-label">วันจันทร์ที่ 30 มิถุนายน 2568</div>
-          <button onclick="changeDay(1)">→</button>
+          <button class="day-arrow" onclick="changeDay(-1)">&#8592;</button>
+          <div class="day-lbl" id="day-lbl-text">—</div>
+          <button class="day-arrow" onclick="changeDay(1)">&#8594;</button>
         </div>
-        <div id="daily-schedule"></div>
+        <div class="sched-list" id="sched-list"></div>
       </div>
 
-      <div id="planner-weekly" class="planner-view">
-        <div id="weekly-grid" style="overflow-x:auto">
-          <div style="display:grid;grid-template-columns:80px repeat(7,1fr);gap:4px;min-width:600px" id="weekly-table"></div>
+      <div id="plan-weekly" class="plan-view">
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;min-width:560px;font-size:0.75rem" id="weekly-tbl"></table>
         </div>
       </div>
 
-      <div id="planner-monthly" class="planner-view">
-        <div id="monthly-view" style="text-align:center;padding:40px;color:var(--text-muted)">
-          📅 มุมมองรายเดือน — แสดงแผนการอ่านตลอดเดือน<br><br>
-          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:560px;margin:24px auto;text-align:center">
-            <div style="font-size:0.7rem;color:var(--text-muted);padding:4px">อา</div>
-            <div style="font-size:0.7rem;color:var(--text-muted);padding:4px">จ</div>
-            <div style="font-size:0.7rem;color:var(--text-muted);padding:4px">อ</div>
-            <div style="font-size:0.7rem;color:var(--text-muted);padding:4px">พ</div>
-            <div style="font-size:0.7rem;color:var(--text-muted);padding:4px">พฤ</div>
-            <div style="font-size:0.7rem;color:var(--text-muted);padding:4px">ศ</div>
-            <div style="font-size:0.7rem;color:var(--text-muted);padding:4px">ส</div>
-          </div>
+      <div id="plan-monthly" class="plan-view">
+        <div style="padding:40px;text-align:center;color:var(--text-3);font-size:0.8rem;letter-spacing:0.05em">
+          มุมมองรายเดือน — กำลังพัฒนา
         </div>
       </div>
     </div>
@@ -488,26 +599,18 @@
 <!-- CHECKLIST -->
 <div id="checklist" class="page">
   <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow">Blueprint A-Level 2569</div>
-      <h2 class="section-title">Checklist หัวข้อสอบ</h2>
-    </div>
-    <div class="checklist-grid" id="checklist-grid"></div>
+    <div class="sec-head"><div><div class="sec-eyebrow">Blueprint A-Level 2569</div><h2 class="sec-title">Checklist</h2></div></div>
+    <div class="cl-grid" id="cl-grid"></div>
   </div>
 </div>
 
-<!-- EXAM SCHEDULE -->
+<!-- SCHEDULE -->
 <div id="schedule" class="page">
   <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow">อ้างอิง TCAS69</div>
-      <h2 class="section-title">กำหนดการสอบ</h2>
-    </div>
-    <div class="glass-card">
-      <div class="exam-timeline" id="exam-timeline"></div>
-    </div>
-    <p style="font-size:0.7rem;color:var(--text-muted);margin-top:16px;text-align:center">
-      ✅ กำหนดการอย่างเป็นทางการจาก ทปอ. ประกาศ เม.ย. 2569 — ที่มา: mytcas.com และ Dek-D
+    <div class="sec-head"><div><div class="sec-eyebrow">Official TCAS70 — ทปอ. เม.ย. 2569</div><h2 class="sec-title">กำหนดการสอบ</h2></div></div>
+    <div class="exam-list" id="exam-list"></div>
+    <p style="font-size:0.62rem;color:var(--text-3);margin-top:24px;letter-spacing:0.06em">
+      SOURCE — mytcas.com / ประกาศอย่างเป็นทางการจาก ทปอ. เมษายน 2569
     </p>
   </div>
 </div>
@@ -515,10 +618,7 @@
 <!-- YOUTUBE -->
 <div id="youtube" class="page">
   <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow">Resources</div>
-      <h2 class="section-title">Playlist แนะนำ</h2>
-    </div>
+    <div class="sec-head"><div><div class="sec-eyebrow">Resources</div><h2 class="sec-title">Playlist แนะนำ</h2></div></div>
     <div id="yt-content"></div>
   </div>
 </div>
@@ -526,42 +626,37 @@
 <!-- TIMER -->
 <div id="timer" class="page">
   <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow">Pomodoro</div>
-      <h2 class="section-title">Study Timer</h2>
-    </div>
-    <div class="glass-card" style="max-width:480px;margin:0 auto">
-      <div class="timer-section">
-        <div style="display:flex;gap:8px;margin-bottom:4px">
-          <button class="planner-tab active" id="mode-work" onclick="setMode('work',this)">🍅 Work 25m</button>
-          <button class="planner-tab" id="mode-short" onclick="setMode('short',this)">☕ Break 5m</button>
-          <button class="planner-tab" id="mode-long" onclick="setMode('long',this)">🛌 Long 15m</button>
-        </div>
+    <div class="sec-head"><div><div class="sec-eyebrow">Pomodoro</div><h2 class="sec-title">Study Timer</h2></div></div>
+    <div class="timer-wrap">
+      <div class="timer-modes">
+        <button class="mode-btn active" id="mb-work" onclick="setMode('work',this)">Work 25m</button>
+        <button class="mode-btn" id="mb-short" onclick="setMode('short',this)">Break 5m</button>
+        <button class="mode-btn" id="mb-long" onclick="setMode('long',this)">Long 15m</button>
+      </div>
 
-        <div class="timer-ring-wrap">
-          <svg class="timer-svg" width="200" height="200" viewBox="0 0 200 200">
-            <circle class="timer-bg" cx="100" cy="100" r="88" stroke-width="8"/>
-            <circle class="timer-arc" id="timer-arc" cx="100" cy="100" r="88" stroke-width="8"
-              stroke-dasharray="553" stroke-dashoffset="0"/>
-          </svg>
-          <div class="timer-center">
-            <div class="timer-display" id="timer-display">25:00</div>
-            <div class="timer-mode" id="timer-mode-label">Work Session</div>
-          </div>
+      <div class="timer-ring-outer">
+        <svg class="timer-svg" width="200" height="200" viewBox="0 0 200 200">
+          <circle class="t-bg" cx="100" cy="100" r="86" stroke-width="4"/>
+          <circle class="t-arc" id="t-arc" cx="100" cy="100" r="86" stroke-width="4"
+            stroke-dasharray="540" stroke-dashoffset="0"/>
+        </svg>
+        <div class="timer-inner">
+          <div class="timer-time" id="timer-disp">25:00</div>
+          <div class="timer-state" id="timer-state">WORK SESSION</div>
         </div>
+      </div>
 
-        <div class="timer-controls">
-          <button class="timer-btn primary" id="timer-start-btn" onclick="toggleTimer()">▶ เริ่ม</button>
-          <button class="timer-btn secondary" onclick="resetTimer()">↺ รีเซ็ต</button>
-        </div>
+      <div class="timer-btns">
+        <button class="btn-primary" id="t-start" onclick="toggleTimer()">Start</button>
+        <button class="btn-ghost" onclick="resetTimer()">Reset</button>
+      </div>
 
-        <div class="timer-sessions" id="session-dots"></div>
+      <div class="pomodoro-dots" id="p-dots"></div>
 
-        <div class="today-summary">
-          <div class="summary-item"><div class="summary-num" id="today-hours">0</div><div class="summary-label">ชั่วโมง</div></div>
-          <div class="summary-item"><div class="summary-num" id="today-mins">0</div><div class="summary-label">นาที</div></div>
-          <div class="summary-item"><div class="summary-num" id="today-sessions">0</div><div class="summary-label">Pomodoro</div></div>
-        </div>
+      <div class="today-strip">
+        <div class="today-cell"><div class="today-num" id="t-h">0</div><div class="today-lbl">Hours</div></div>
+        <div class="today-cell"><div class="today-num" id="t-m">0</div><div class="today-lbl">Minutes</div></div>
+        <div class="today-cell"><div class="today-num" id="t-s">0</div><div class="today-lbl">Sessions</div></div>
       </div>
     </div>
   </div>
@@ -570,42 +665,31 @@
 <!-- STATS -->
 <div id="stats" class="page">
   <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow">Statistics</div>
-      <h2 class="section-title">สถิติการอ่าน</h2>
-    </div>
-
+    <div class="sec-head"><div><div class="sec-eyebrow">Statistics</div><h2 class="sec-title">สถิติการอ่าน</h2></div></div>
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-title">ชั่วโมงรายวัน (7 วันล่าสุด)</div>
-        <div class="bar-chart" id="daily-chart"></div>
+      <div class="chart-card">
+        <div class="chart-title">Hours per day — 7 วันล่าสุด</div>
+        <div class="bar-row" id="chart-daily"></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-title">ชั่วโมงรายสัปดาห์ (4 สัปดาห์ล่าสุด)</div>
-        <div class="bar-chart" id="weekly-chart"></div>
-      </div>
-    </div>
-
-    <div style="margin-top:24px">
-      <div class="goal-card">
-        <div class="goal-header">
-          <div class="goal-title">🎯 เป้าหมาย 1200 ชั่วโมง</div>
-          <button class="goal-edit" onclick="editGoal()">แก้ไข</button>
-        </div>
-        <div class="goal-numbers">
-          <div class="goal-num-item"><div class="goal-big" id="goal-current">315</div><div class="goal-small-label">ชั่วโมงที่อ่านแล้ว</div></div>
-          <div class="goal-num-item"><div class="goal-big" style="color:var(--text-muted)" id="goal-remaining">885</div><div class="goal-small-label">ชั่วโมงที่เหลือ</div></div>
-          <div class="goal-num-item"><div class="goal-big" id="goal-target">1200</div><div class="goal-small-label">เป้าหมายรวม</div></div>
-        </div>
-        <div class="goal-bar-wrap">
-          <div class="goal-bar"><div class="goal-bar-fill" id="goal-bar-fill" style="width:26.25%"></div></div>
-          <div class="goal-bar-labels"><span>0</span><span id="goal-pct" style="color:var(--mint)">26% สำเร็จ</span><span id="goal-target-label">1200</span></div>
-        </div>
+      <div class="chart-card">
+        <div class="chart-title">Hours per week — 4 สัปดาห์ล่าสุด</div>
+        <div class="bar-row" id="chart-weekly"></div>
       </div>
     </div>
-
+    <div class="goal-wrap">
+      <div class="goal-inner">
+        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:20px">Goal Tracker</div>
+        <div class="goal-nums">
+          <div class="goal-num"><div class="goal-big">315</div><div class="goal-lbl">ชั่วโมงที่อ่านแล้ว</div></div>
+          <div class="goal-num"><div class="goal-big dim">885</div><div class="goal-lbl">ชั่วโมงที่เหลือ</div></div>
+          <div class="goal-num"><div class="goal-big" style="color:var(--text-2)" id="g-target">1200</div><div class="goal-lbl">เป้าหมายรวม</div></div>
+        </div>
+        <div class="goal-track"><div class="goal-prog" style="width:26.25%"></div></div>
+        <div class="goal-meta"><span>0</span><span style="color:var(--mint);font-weight:600">26.25%</span><span>1200 hr</span></div>
+      </div>
+    </div>
     <div style="margin-top:24px">
-      <div class="section-eyebrow" style="margin-bottom:16px">การแจ้งเตือนวันนี้</div>
+      <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px">Notifications</div>
       <div class="notif-list" id="notif-list"></div>
     </div>
   </div>
@@ -614,478 +698,345 @@
 </main>
 
 <script>
-// ---- DATA ----
+// ──────── DATA ────────
 const subjects = [
-  { id:'bio', name:'ชีววิทยา', pct:63, done:10, total:16, color:'#22c55e' },
-  { id:'chem', name:'เคมี', pct:45, done:5, total:11, color:'#3b82f6' },
-  { id:'phys', name:'ฟิสิกส์', pct:30, done:3, total:11, color:'#eab308' },
-  { id:'math', name:'คณิตศาสตร์', pct:55, done:5, total:9, color:'#a855f7' },
-  { id:'eng', name:'ภาษาอังกฤษ', pct:70, done:5, total:7, color:'#ef4444' },
-  { id:'thai', name:'ภาษาไทย', pct:40, done:2, total:3, color:'#f97316' },
-  { id:'social', name:'สังคมศึกษา', pct:20, done:1, total:5, color:'#06b6d4' },
-  { id:'tpat', name:'TPAT1', pct:35, done:2, total:6, color:'#ec4899' },
+  { id:'bio',    name:'ชีววิทยา',        pct:63, done:10, total:16, color:'#22c55e' },
+  { id:'chem',   name:'เคมี',            pct:45, done:5,  total:11, color:'#4f8ef7' },
+  { id:'phys',   name:'ฟิสิกส์',         pct:30, done:3,  total:11, color:'#f5c518' },
+  { id:'math',   name:'คณิตศาสตร์',      pct:55, done:5,  total:9,  color:'#b57bee' },
+  { id:'eng',    name:'ภาษาอังกฤษ',      pct:70, done:5,  total:7,  color:'#ff4d4d' },
+  { id:'thai',   name:'ภาษาไทย',         pct:40, done:2,  total:3,  color:'#ff8c42' },
+  { id:'social', name:'สังคมศึกษา',      pct:20, done:1,  total:5,  color:'#22d3ee' },
+  { id:'tpat',   name:'TPAT1',           pct:35, done:2,  total:6,  color:'#ec4899' },
 ];
 
-const checklistData = {
-  'ชีววิทยา': { color:'#22c55e', items:['เซลล์ (Cell)','ชีวโมเลกุล (Biomolecule)','เอนไซม์ (Enzyme)','พันธุศาสตร์ (Genetics)','DNA','RNA','วิวัฒนาการ (Evolution)','ระบบนิเวศ (Ecology)','พืช (Plant)','สัตว์ (Animal)','ระบบประสาท (Nervous)','ระบบต่อมไร้ท่อ (Endocrine)','ภูมิคุ้มกัน (Immunology)','การหายใจ (Respiration)','การสังเคราะห์แสง (Photosynthesis)','เทคโนโลยีชีวภาพ (Biotech)'] },
-  'เคมี': { color:'#3b82f6', items:['โครงสร้างอะตอม','พันธะเคมี','แก๊ส','เทอร์โมเคมี','กรด-เบส','ไฟฟ้าเคมี','เคมีอินทรีย์','พอลิเมอร์','สมดุล','สารละลาย','สตอยชิโอเมทรี'] },
-  'ฟิสิกส์': { color:'#eab308', items:['กลศาสตร์','การเคลื่อนที่แบบวงกลม','งานและพลังงาน','โมเมนตัม','ไฟฟ้า','แม่เหล็กไฟฟ้า','ฟิสิกส์อะตอม','คลื่น','เสียง','แสง','นิวเคลียร์'] },
-  'คณิตศาสตร์': { color:'#a855f7', items:['ฟังก์ชัน','แคลคูลัส','ความน่าจะเป็น','สถิติ','เมทริกซ์','เวกเตอร์','ตรีโกณมิติ','เรขาคณิตวิเคราะห์','ลำดับและอนุกรม'] },
-  'ภาษาอังกฤษ': { color:'#ef4444', items:['Vocabulary','Grammar','Reading Comprehension','Conversation','Error Identification','Cloze Test','Writing'] },
-  'ภาษาไทย': { color:'#f97316', items:['หลักภาษาไทย','วรรณคดีและวรรณกรรม','การอ่านจับใจความ'] },
-  'สังคมศึกษา': { color:'#06b6d4', items:['ประวัติศาสตร์','ภูมิศาสตร์','เศรษฐศาสตร์','หน้าที่พลเมือง','ศาสนาและจริยธรรม'] },
-  'TPAT1': { color:'#ec4899', items:['เชาวน์ปัญญา','Critical Thinking','จริยธรรมแพทย์','สถานการณ์การแพทย์','Decision Making','การสื่อสาร'] },
+const checkData = {
+  'ชีววิทยา':     { color:'#22c55e', items:['Cell','Biomolecule','Enzyme','Genetics','DNA','RNA','Evolution','Ecology','Plant','Animal','Nervous System','Endocrine','Immunology','Respiration','Photosynthesis','Biotechnology'] },
+  'เคมี':         { color:'#4f8ef7', items:['Structure & Atom','Bonding','Gas','Thermochemistry','Acid-Base','Electrochemistry','Organic','Polymer','Equilibrium','Solution','Stoichiometry'] },
+  'ฟิสิกส์':      { color:'#f5c518', items:['Mechanics','Circular Motion','Work & Energy','Momentum','Electricity','Magnetism','Modern Physics','Wave','Sound','Optics','Nuclear'] },
+  'คณิตศาสตร์':   { color:'#b57bee', items:['Function','Calculus','Probability','Statistics','Matrix','Vector','Trigonometry','Coordinate','Sequence & Series'] },
+  'ภาษาอังกฤษ':   { color:'#ff4d4d', items:['Vocabulary','Grammar','Reading','Conversation','Error Identification','Cloze Test','Writing'] },
+  'ภาษาไทย':      { color:'#ff8c42', items:['หลักภาษา','วรรณคดี','การอ่านจับใจความ'] },
+  'สังคมศึกษา':   { color:'#22d3ee', items:['ประวัติศาสตร์','ภูมิศาสตร์','เศรษฐศาสตร์','หน้าที่พลเมือง','ศาสนา'] },
+  'TPAT1':        { color:'#ec4899', items:['เชาวน์ปัญญา','Critical Thinking','จริยธรรม','สถานการณ์การแพทย์','Decision Making','การสื่อสาร'] },
 };
 
-const dailySchedule = [
-  { time:'05:30-06:00', label:'ตื่นนอน + เตรียมตัว', type:'rest' },
+const dailySched = [
+  { time:'05:30-06:00', label:'ตื่นนอน', type:'rest' },
   { time:'06:00-07:30', label:'ชีววิทยา', type:'bio' },
   { time:'07:30-08:00', label:'อาหารเช้า', type:'rest' },
   { time:'08:00-09:30', label:'เคมี', type:'chem' },
-  { time:'09:30-09:45', label:'พัก', type:'rest' },
   { time:'09:45-11:15', label:'ฟิสิกส์', type:'phys' },
   { time:'11:15-12:00', label:'พักกลางวัน', type:'rest' },
   { time:'13:00-14:30', label:'คณิตศาสตร์', type:'math' },
-  { time:'14:30-14:45', label:'พัก', type:'rest' },
   { time:'14:45-16:00', label:'ภาษาไทย + สังคม', type:'thai' },
   { time:'18:00-19:30', label:'เคมี (ทบทวน)', type:'chem' },
-  { time:'19:30-19:45', label:'พัก', type:'rest' },
   { time:'20:00-21:00', label:'ภาษาอังกฤษ', type:'eng' },
   { time:'21:00-21:30', label:'ทบทวนประจำวัน', type:'bio' },
 ];
 
 const examSchedule = [
-  { date:'15 ก.ค. 69', name:'เปิดระบบ myTCAS + TCASFolio', desc:'ลงทะเบียนใช้งานระบบ TCAS70 และระบบ TCASFolio ใหม่', target: new Date('2026-07-15') },
-  { date:'15 ส.ค. 69', name:'รับสมัคร รอบ 1 Portfolio', desc:'ยื่นผ่านระบบ TCASFolio และเว็บไซต์มหาวิทยาลัย', target: new Date('2026-08-15') },
-  { date:'4-10 พ.ย. 69', name:'สมัครสอบ TGAT / TPAT 2-5', desc:'สมัครผ่าน student.mytcas.com — สอบฟรีสูงสุด 7 วิชา!', target: new Date('2026-11-04') },
-  { date:'11-12 พ.ย. 69', name:'สมัครสอบ TGAT/TPAT ล่าช้า (เพิ่มเติม)', desc:'รับคำร้องสมัครล่าช้า (ค่าสมัครเพิ่ม)', target: new Date('2026-11-11') },
-  { date:'7 ธ.ค. 69 – 1 ก.พ. 70', name:'พิมพ์บัตรที่นั่งสอบ TGAT/TPAT 2-5', desc:'พิมพ์บัตรผ่านระบบออนไลน์', target: new Date('2026-12-07') },
-  { date:'14-20 ม.ค. 70', name:'เปิดรับสมัครสอบ A-Level', desc:'สมัครวิชา Bio, Chem, Phys, Math, Eng, Thai, Social', target: new Date('2027-01-14') },
-  { date:'30 ม.ค. – 1 ก.พ. 70', name:'สอบ TGAT / TPAT 2-5', desc:'สอบด้วยกระดาษ (PBT) ทุกวิชา', target: new Date('2027-01-30') },
-  { date:'13 ก.พ. 70', name:'สอบ TPAT1 วิชาความถนัดแพทย์ (กสพท)', desc:'ข้อสอบวัดเชาวน์ปัญญา จริยธรรม การสื่อสาร การตัดสินใจ', target: new Date('2027-02-13') },
-  { date:'28 ก.พ. 70', name:'ประกาศผลสอบ TGAT/TPAT 2-5', desc:'ตรวจสอบผ่าน mytcas.com', target: new Date('2027-02-28') },
-  { date:'10 มี.ค. 70', name:'ประกาศผล รอบ 1 Portfolio', desc:'ยืนยันสิทธิ์ 10-11 มี.ค. 2570', target: new Date('2027-03-10') },
-  { date:'13-15 มี.ค. 70', name:'สอบ A-Level วิชาสามัญ', desc:'ชีววิทยา เคมี ฟิสิกส์ คณิต อังกฤษ ไทย สังคม', target: new Date('2027-03-13') },
-  { date:'13 มี.ค. 70', name:'รับสมัคร รอบ 2 Quota', desc:'โควตาพื้นที่ โรงเรียนเครือข่าย ความสามารถพิเศษ', target: new Date('2027-03-13') },
-  { date:'3-4 พ.ค. 70', name:'ประกาศผลและยืนยันสิทธิ์ รอบ 2 Quota', desc:'สละสิทธิ์ได้ถึง 5 พ.ค. 2570', target: new Date('2027-05-03') },
-  { date:'7-11 พ.ค. 70', name:'รับสมัคร รอบ 3 Admission', desc:'สมัครฟรี 7 อันดับ ผ่าน student.mytcas.com', target: new Date('2027-05-07') },
-  { date:'22 พ.ค. 70', name:'ประกาศผล รอบ 3 Admission ครั้งที่ 1', desc:'ยืนยันสิทธิ์ 22-23 พ.ค. 2570', target: new Date('2027-05-22') },
-  { date:'29 พ.ค. – 15 มิ.ย. 70', name:'รับสมัคร รอบ 4 Direct Admission', desc:'รับตรงจากแต่ละมหาวิทยาลัย ประกาศผลครั้งที่ 1 วันที่ 7-8 มิ.ย.', target: new Date('2027-05-29') },
+  { date:'15 ก.ค. 69',       year:'2569', name:'เปิดระบบ myTCAS + TCASFolio', desc:'ลงทะเบียนใช้งานระบบ TCAS70 และ TCASFolio', target: new Date('2026-07-15') },
+  { date:'15 ส.ค. 69',       year:'2569', name:'รับสมัคร รอบ 1 Portfolio', desc:'ยื่นผ่าน TCASFolio และเว็บไซต์มหาวิทยาลัย', target: new Date('2026-08-15') },
+  { date:'4–10 พ.ย. 69',    year:'2569', name:'สมัครสอบ TGAT / TPAT 2–5', desc:'สมัครผ่าน student.mytcas.com — สอบฟรีสูงสุด 7 วิชา', target: new Date('2026-11-04') },
+  { date:'11–12 พ.ย. 69',   year:'2569', name:'สมัครสอบ TGAT/TPAT ล่าช้า', desc:'รับคำร้องสมัครล่าช้า (ค่าสมัครเพิ่ม)', target: new Date('2026-11-11') },
+  { date:'7 ธ.ค. 69 – 1 ก.พ. 70', year:'2569–2570', name:'พิมพ์บัตรที่นั่งสอบ TGAT/TPAT', desc:'พิมพ์บัตรผ่านระบบออนไลน์', target: new Date('2026-12-07') },
+  { date:'14–20 ม.ค. 70',   year:'2570', name:'เปิดรับสมัครสอบ A-Level', desc:'Bio, Chem, Phys, Math, Eng, Thai, Social', target: new Date('2027-01-14') },
+  { date:'30 ม.ค. – 1 ก.พ. 70', year:'2570', name:'สอบ TGAT / TPAT 2–5', desc:'สอบด้วยกระดาษ (PBT) ทุกวิชา', target: new Date('2027-01-30') },
+  { date:'13 ก.พ. 70',       year:'2570', name:'สอบ TPAT1 — กสพท', desc:'วัดเชาวน์ปัญญา จริยธรรม การสื่อสาร การตัดสินใจ', target: new Date('2027-02-13') },
+  { date:'28 ก.พ. 70',       year:'2570', name:'ประกาศผลสอบ TGAT/TPAT 2–5', desc:'ตรวจสอบผ่าน mytcas.com', target: new Date('2027-02-28') },
+  { date:'10 มี.ค. 70',      year:'2570', name:'ประกาศผล รอบ 1 Portfolio', desc:'ยืนยันสิทธิ์ 10–11 มี.ค. 2570', target: new Date('2027-03-10') },
+  { date:'13–15 มี.ค. 70',  year:'2570', name:'สอบ A-Level วิชาสามัญ', desc:'ชีววิทยา เคมี ฟิสิกส์ คณิต อังกฤษ ไทย สังคม', target: new Date('2027-03-13') },
+  { date:'13 มี.ค. 70',      year:'2570', name:'รับสมัคร รอบ 2 Quota', desc:'โควตาพื้นที่ โรงเรียนเครือข่าย ความสามารถพิเศษ', target: new Date('2027-03-13') },
+  { date:'3–4 พ.ค. 70',     year:'2570', name:'ประกาศผล รอบ 2 Quota', desc:'ยืนยันสิทธิ์ / สละสิทธิ์ภายใน 5 พ.ค.', target: new Date('2027-05-03') },
+  { date:'7–11 พ.ค. 70',    year:'2570', name:'รับสมัคร รอบ 3 Admission', desc:'สมัครฟรี 7 อันดับ ผ่าน student.mytcas.com', target: new Date('2027-05-07') },
+  { date:'22 พ.ค. 70',       year:'2570', name:'ประกาศผล รอบ 3 Admission ครั้งที่ 1', desc:'ยืนยันสิทธิ์ 22–23 พ.ค. 2570', target: new Date('2027-05-22') },
+  { date:'29 พ.ค. – 15 มิ.ย. 70', year:'2570', name:'รับสมัคร รอบ 4 Direct Admission', desc:'รับตรงจากแต่ละมหาวิทยาลัย — ประกาศผลครั้งที่ 1 วันที่ 7–8 มิ.ย.', target: new Date('2027-05-29') },
 ];
 
 const ytData = [
-  { subject:'🧬 ชีววิทยา', channels:[
-    { name:'We by The Brain', url:'https://www.youtube.com/@webythebrain' },
-    { name:'Bio by P\'Max', url:'https://www.youtube.com/@biobymax' },
-    { name:'Ondemand Biology', url:'https://www.youtube.com/@ondemandschool' },
-    { name:'Dek-D School', url:'https://www.youtube.com/@dekdschool' },
-  ]},
-  { subject:'⚗️ เคมี', channels:[
-    { name:'อาจารย์อุ๊', url:'https://www.youtube.com/@krupoom' },
-    { name:'We Chemistry', url:'https://www.youtube.com/@wechemistry' },
-    { name:'Ondemand Chemistry', url:'https://www.youtube.com/@ondemandschool' },
-  ]},
-  { subject:'⚡ ฟิสิกส์', channels:[
-    { name:'Physics by P\'Nan', url:'https://www.youtube.com/@physicsbypnan' },
-    { name:'Applied Physics', url:'https://www.youtube.com/@appliedphysics' },
-  ]},
-  { subject:'📐 คณิตศาสตร์', channels:[
-    { name:'SupK', url:'https://www.youtube.com/@supkmath' },
-    { name:'Ondemand Math', url:'https://www.youtube.com/@ondemandschool' },
-    { name:'The Tutor', url:'https://www.youtube.com/@thetutor' },
-  ]},
-  { subject:'🔤 ภาษาอังกฤษ', channels:[
-    { name:'ครูสมศรี', url:'https://www.youtube.com/@krusomsri' },
-    { name:'Aj. Kenny', url:'https://www.youtube.com/@ajkenny' },
-    { name:'Eng by Chris', url:'https://www.youtube.com/@engbychris' },
-  ]},
+  { subject:'BIOLOGY', channels:[{name:'We by The Brain',url:'https://www.youtube.com/@webythebrain'},{name:"Bio by P'Max",url:'https://www.youtube.com/@biobymax'},{name:'Ondemand Biology',url:'https://www.youtube.com/@ondemandschool'},{name:'Dek-D School',url:'https://www.youtube.com/@dekdschool'}] },
+  { subject:'CHEMISTRY', channels:[{name:'อาจารย์อุ๊',url:'https://www.youtube.com/@krupoom'},{name:'We Chemistry',url:'https://www.youtube.com/@wechemistry'},{name:'Ondemand Chemistry',url:'https://www.youtube.com/@ondemandschool'}] },
+  { subject:'PHYSICS', channels:[{name:"Physics by P'Nan",url:'https://www.youtube.com/@physicsbypnan'},{name:'Applied Physics',url:'https://www.youtube.com/@appliedphysics'}] },
+  { subject:'MATHEMATICS', channels:[{name:'SupK',url:'https://www.youtube.com/@supkmath'},{name:'Ondemand Math',url:'https://www.youtube.com/@ondemandschool'},{name:'The Tutor',url:'https://www.youtube.com/@thetutor'}] },
+  { subject:'ENGLISH', channels:[{name:'ครูสมศรี',url:'https://www.youtube.com/@krusomsri'},{name:'Aj. Kenny',url:'https://www.youtube.com/@ajkenny'},{name:'Eng by Chris',url:'https://www.youtube.com/@engbychris'}] },
 ];
 
-// ---- STATE ----
-let checkState = {};
+// ──────── STATE ────────
+let checks = JSON.parse(localStorage.getItem('med70v2-checks') || '{}');
 let currentDay = new Date();
-let timerInterval = null;
-let timerRunning = false;
 let timerMode = 'work';
-let timerSeconds = 25 * 60;
-let totalTimerSeconds = 25 * 60;
-let pomodoroCount = 0;
-let todayTotalSeconds = 0;
-const MODES = { work: 25*60, short: 5*60, long: 15*60 };
-
-// Load from localStorage
-function loadState() {
-  const saved = localStorage.getItem('med70-checks');
-  if (saved) checkState = JSON.parse(saved);
-  const savedTimer = localStorage.getItem('med70-timer-today');
-  if (savedTimer) {
-    const d = JSON.parse(savedTimer);
-    if (d.date === new Date().toDateString()) {
-      todayTotalSeconds = d.seconds;
-      pomodoroCount = d.pomodoros || 0;
-    }
-  }
-}
-
-function saveState() {
-  localStorage.setItem('med70-checks', JSON.stringify(checkState));
-}
-
-function saveTimerState() {
-  localStorage.setItem('med70-timer-today', JSON.stringify({
-    date: new Date().toDateString(),
-    seconds: todayTotalSeconds,
-    pomodoros: pomodoroCount
-  }));
-}
-
-// ---- COUNTDOWN ----
-const TCAS_DATES = {
+let timerSec = 25*60;
+let totalSec = 25*60;
+let timerRunning = false;
+let timerIv = null;
+let pomCount = 0;
+let todaySec = 0;
+const MODES = { work:25*60, short:5*60, long:15*60 };
+const TCAS = {
   tpat1: new Date('2027-02-13T08:00:00'),
   alevel: new Date('2027-03-13T08:00:00'),
   apply: new Date('2026-11-04T08:00:00'),
 };
 
-function updateCountdowns() {
-  const now = new Date();
-  ['tpat1','alevel','apply'].forEach(key => {
-    const target = TCAS_DATES[key];
-    const diff = target - now;
-    const el = document.getElementById('cd-'+key);
-    if (!el) return;
-    if (diff <= 0) { el.innerHTML = '<span style="color:var(--mint)">ผ่านไปแล้ว</span>'; return; }
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor((diff%86400000)/3600000);
-    const m = Math.floor((diff%3600000)/60000);
-    el.innerHTML = `
-      <div class="countdown-unit"><span class="countdown-num">${d}</span><span class="countdown-unit-label">วัน</span></div>
-      <span class="countdown-sep">:</span>
-      <div class="countdown-unit"><span class="countdown-num">${String(h).padStart(2,'0')}</span><span class="countdown-unit-label">ชั่วโมง</span></div>
-      <span class="countdown-sep">:</span>
-      <div class="countdown-unit"><span class="countdown-num">${String(m).padStart(2,'0')}</span><span class="countdown-unit-label">นาที</span></div>
-    `;
-  });
-}
+function saveChecks() { localStorage.setItem('med70v2-checks',JSON.stringify(checks)); }
 
-// ---- NAV ----
+// ──────── COUNTDOWN ────────
+function fmtCd(diff) {
+  if (diff <= 0) return '<span style="color:var(--mint);font-size:1rem;letter-spacing:0.1em">ARRIVED</span>';
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  return `
+    <span class="cd-num">${d}</span><span class="cd-unit">d</span>
+    <span class="cd-num">${String(h).padStart(2,'0')}</span><span class="cd-unit">h</span>
+    <span class="cd-num">${String(m).padStart(2,'0')}</span><span class="cd-unit">m</span>
+    <span class="cd-num" style="font-size:1.4rem;color:var(--text-2)">${String(s).padStart(2,'0')}</span><span class="cd-unit">s</span>
+  `;
+}
+function tickCd() {
+  const now = Date.now();
+  const el1 = document.getElementById('cd-tpat1');
+  const el2 = document.getElementById('cd-alevel');
+  const el3 = document.getElementById('cd-apply');
+  if(el1) el1.innerHTML = fmtCd(TCAS.tpat1-now);
+  if(el2) el2.innerHTML = fmtCd(TCAS.alevel-now);
+  if(el3) el3.innerHTML = fmtCd(TCAS.apply-now);
+}
+setInterval(tickCd, 1000);
+tickCd();
+
+// ──────── NAV ────────
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const tabs = document.querySelectorAll('.nav-tab');
-  const map = ['home','dashboard','planner','checklist','schedule','youtube','timer','stats'];
-  const idx = map.indexOf(id);
-  if (idx >= 0) tabs[idx].classList.add('active');
-  window.scrollTo(0, 0);
+  const map=['home','dashboard','planner','checklist','schedule','youtube','timer','stats'];
+  const btns = document.querySelectorAll('.nav-btn');
+  const i = map.indexOf(id);
+  if(i>=0) btns[i].classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
 }
 
-// ---- DASHBOARD ----
-function renderDashboard() {
-  const grid = document.getElementById('subject-grid');
-  if (!grid) return;
-  grid.innerHTML = subjects.map(s => `
-    <div class="subject-card" onclick="showPage('checklist')">
-      <div class="subject-top">
-        <span class="subject-name">${s.name}</span>
-        <span class="subject-pct" style="color:${s.color}">${s.pct}%</span>
+// ──────── DASHBOARD ────────
+function renderDash() {
+  const g = document.getElementById('subj-grid');
+  if(!g) return;
+  g.innerHTML = subjects.map(s=>`
+    <div class="subj-card" onclick="showPage('checklist')">
+      <div class="subj-card-top">
+        <span class="subj-name">${s.name}</span>
+        <span class="subj-pct" style="color:${s.color}">${s.pct}%</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${s.pct}%;background:linear-gradient(90deg,${s.color},${s.color}aa)"></div></div>
-      <div class="subject-meta">อ่านแล้ว ${s.done}/${s.total} หัวข้อ</div>
+      <div class="subj-bar"><div class="subj-fill" style="width:${s.pct}%;background:${s.color}"></div></div>
+      <div class="subj-meta">${s.done} / ${s.total} topics</div>
     </div>
   `).join('');
 }
 
-// ---- PLANNER ----
-function renderDailySchedule() {
-  const el = document.getElementById('daily-schedule');
-  if (!el) return;
-  el.innerHTML = dailySchedule.map(s => `
-    <div class="schedule-slot">
-      <span class="slot-time">${s.time}</span>
-      <div class="slot-block ${s.type}">${s.label}</div>
+// ──────── PLANNER ────────
+const DAYS_TH = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
+const MONTHS_TH = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+function renderDaily() {
+  const lbl = document.getElementById('day-lbl-text');
+  if(lbl) lbl.textContent = `วัน${DAYS_TH[currentDay.getDay()]}ที่ ${currentDay.getDate()} ${MONTHS_TH[currentDay.getMonth()]} ${currentDay.getFullYear()+543}`;
+  const el = document.getElementById('sched-list');
+  if(!el) return;
+  el.innerHTML = dailySched.map(s=>`
+    <div class="sched-row">
+      <span class="sched-time">${s.time}</span>
+      <div class="sched-block ${s.type}">${s.label}</div>
     </div>
   `).join('');
-
-  const th = ['อา','จ','อ','พ','พฤ','ศ','ส'];
-  const days = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
-  const months = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
-  const d = currentDay;
-  document.getElementById('current-day-label').textContent = `วัน${days[d.getDay()]}ที่ ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()+543}`;
 }
-
-function changeDay(delta) {
-  currentDay = new Date(currentDay.getTime() + delta * 86400000);
-  renderDailySchedule();
-}
-
-function switchPlanner(mode, btn) {
-  document.querySelectorAll('.planner-view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.planner-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('planner-'+mode).classList.add('active');
+function changeDay(d) { currentDay = new Date(currentDay.getTime()+d*86400000); renderDaily(); }
+function switchTab(mode, btn) {
+  document.querySelectorAll('.plan-view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('plan-'+mode).classList.add('active');
   btn.classList.add('active');
 }
-
-function renderWeeklyTable() {
-  const el = document.getElementById('weekly-table');
-  if (!el) return;
-  const days = ['อา','จ','อ','พ','พฤ','ศ','ส'];
-  const colors = {bio:'#22c55e',chem:'#3b82f6',phys:'#eab308',math:'#a855f7',eng:'#ef4444',thai:'#f97316'};
-  const subjectsByDay = [
-    ['Bio','Math'],['Bio','Chem','Eng'],['Chem','Phys'],['Bio','Math','Thai'],
-    ['Phys','Chem'],['Math','Eng','Social'],['Review All']
-  ];
-  let html = '<div style="padding:8px;font-size:0.65rem;color:var(--text-muted)">เวลา</div>';
-  days.forEach(d => { html += `<div style="padding:8px;font-size:0.75rem;color:var(--mint);text-align:center">${d}</div>`; });
-  ['เช้า 6-8','สาย 9-11','บ่าย 13-15','เย็น 18-20','ค่ำ 20-21'].forEach((time,i) => {
-    html += `<div style="padding:6px;font-size:0.65rem;color:var(--text-muted);border-top:1px solid var(--glass-border)">${time}</div>`;
-    subjectsByDay.forEach(daySubjects => {
-      const sub = daySubjects[i % daySubjects.length] || '-';
-      html += `<div style="padding:6px;border-top:1px solid var(--glass-border);font-size:0.7rem;color:var(--text-dim);text-align:center">${sub}</div>`;
-    });
+function renderWeekly() {
+  const t = document.getElementById('weekly-tbl');
+  if(!t) return;
+  const days = ['จ','อ','พ','พฤ','ศ','ส','อา'];
+  const slots = [['06:00','Bio'],['09:00','Chem'],['13:00','Math'],['18:00','Chem'],['20:00','Eng']];
+  const plan = [['Bio','Chem','Eng'],['Bio','Phys','Eng'],['Chem','Math','Thai'],['Bio','Phys','Eng'],['Math','Chem','Social'],['Math','Bio','TPAT1'],['Review All']];
+  let h = `<tr><th style="padding:8px;font-size:0.62rem;color:var(--text-3);font-weight:500;text-align:left;border-bottom:1px solid var(--border)">เวลา</th>`;
+  days.forEach(d=>{ h+=`<th style="padding:8px;font-size:0.7rem;color:var(--mint);font-weight:600;text-align:center;border-bottom:1px solid var(--border)">${d}</th>`; });
+  h += '</tr>';
+  slots.forEach(([time,],si)=>{
+    h += `<tr><td style="padding:8px;font-size:0.62rem;color:var(--text-3);border-bottom:1px solid var(--border)">${time}</td>`;
+    plan.forEach(dp=>{ const sub=dp[si%dp.length]||'—'; h+=`<td style="padding:8px;font-size:0.7rem;text-align:center;color:var(--text-2);border-bottom:1px solid var(--border)">${sub}</td>`; });
+    h += '</tr>';
   });
-  el.innerHTML = html;
+  t.innerHTML = h;
 }
 
-// ---- CHECKLIST ----
+// ──────── CHECKLIST ────────
 function renderChecklist() {
-  const grid = document.getElementById('checklist-grid');
-  if (!grid) return;
-  grid.innerHTML = Object.entries(checklistData).map(([subj, data]) => {
-    const key = subj;
-    if (!checkState[key]) checkState[key] = {};
-    const done = data.items.filter((_, i) => checkState[key][i]).length;
-    const pct = Math.round((done / data.items.length) * 100);
+  const g = document.getElementById('cl-grid');
+  if(!g) return;
+  g.innerHTML = Object.entries(checkData).map(([subj,data])=>{
+    if(!checks[subj]) checks[subj]={};
+    const done = data.items.filter((_,i)=>checks[subj][i]).length;
+    const pct = Math.round((done/data.items.length)*100);
     return `
-      <div class="checklist-subject">
-        <div class="checklist-subject-title">
-          <span class="subject-dot" style="background:${data.color}"></span>
-          ${subj}
+      <div class="cl-card">
+        <div class="cl-head">
+          <div class="cl-title"><span class="cl-dot" style="background:${data.color}"></span>${subj}</div>
+          <div class="cl-prog-bar"><div class="cl-prog-fill" style="width:${pct}%;background:${data.color}"></div></div>
+          <div class="cl-prog-txt">${done}/${data.items.length} &nbsp;·&nbsp; ${pct}%</div>
         </div>
-        <div class="checklist-progress-text">${done}/${data.items.length} หัวข้อ · ${pct}%</div>
-        <div class="progress-bar" style="margin-bottom:14px"><div class="progress-fill" style="width:${pct}%;background:${data.color}"></div></div>
-        <div class="checklist-items">
-          ${data.items.map((item, i) => `
-            <label class="check-item ${checkState[key][i] ? 'checked' : ''}" onclick="toggleCheck('${key}',${i})">
-              <div class="check-box">${checkState[key][i] ? '✓' : ''}</div>
-              <span class="check-label">${item}</span>
-            </label>
+        <div class="cl-items">
+          ${data.items.map((item,i)=>`
+            <div class="cl-item ${checks[subj][i]?'done':''}" onclick="toggleCheck('${subj}',${i})">
+              <div class="cl-box">${checks[subj][i]?'✓':''}</div>
+              <span class="cl-txt">${item}</span>
+            </div>
           `).join('')}
         </div>
       </div>
     `;
   }).join('');
 }
-
-function toggleCheck(key, idx) {
-  if (!checkState[key]) checkState[key] = {};
-  checkState[key][idx] = !checkState[key][idx];
-  saveState();
-  renderChecklist();
-  renderDashboard();
+function toggleCheck(subj,idx) {
+  if(!checks[subj]) checks[subj]={};
+  checks[subj][idx]=!checks[subj][idx];
+  saveChecks(); renderChecklist(); renderDash();
 }
 
-// ---- EXAM SCHEDULE ----
-function renderExamSchedule() {
-  const el = document.getElementById('exam-timeline');
-  if (!el) return;
-  const now = new Date();
-  el.innerHTML = examSchedule.map(e => {
+// ──────── EXAM SCHEDULE ────────
+function renderSchedule() {
+  const el = document.getElementById('exam-list');
+  if(!el) return;
+  const now = Date.now();
+  el.innerHTML = examSchedule.map(e=>{
     const diff = e.target - now;
-    const d = Math.max(0, Math.floor(diff / 86400000));
-    const pill = diff > 0 ? `<span class="exam-countdown-pill">อีก ${d} วัน</span>` : `<span class="exam-countdown-pill" style="background:rgba(239,68,68,0.1);color:var(--red);border-color:rgba(239,68,68,0.2)">ผ่านไปแล้ว</span>`;
+    const d = Math.max(0,Math.floor(diff/86400000));
+    const past = diff < 0;
     return `
-      <div class="exam-item">
-        <div class="exam-date"><div class="exam-date-main">${e.date}</div></div>
-        <div class="exam-info"><div class="exam-name">${e.name}</div><div class="exam-desc">${e.desc}</div></div>
-        ${pill}
+      <div class="exam-row">
+        <div><div class="exam-d-main">${e.date}</div><div class="exam-d-year">${e.year}</div></div>
+        <div><div class="exam-name">${e.name}</div><div class="exam-desc">${e.desc}</div></div>
+        <span class="exam-pill ${past?'past':''}">${past?'PASSED':`${d}d`}</span>
       </div>
     `;
   }).join('');
 }
 
-// ---- YOUTUBE ----
-function renderYoutube() {
+// ──────── YOUTUBE ────────
+function renderYt() {
   const el = document.getElementById('yt-content');
-  if (!el) return;
-  el.innerHTML = ytData.map(sec => `
-    <div class="yt-section-title">${sec.subject}</div>
+  if(!el) return;
+  el.innerHTML = ytData.map(sec=>`
+    <div class="yt-section-head">${sec.subject}</div>
     <div class="yt-grid">
-      ${sec.channels.map(ch => `
+      ${sec.channels.map(ch=>`
         <a class="yt-card" href="${ch.url}" target="_blank" rel="noopener">
-          <div class="yt-icon">
-            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-          </div>
-          <div class="yt-channel">${ch.name}</div>
-          <div class="yt-subject">${sec.subject}</div>
+          <div class="yt-bar"></div>
+          <div class="yt-name">${ch.name}</div>
+          <div class="yt-sub-lbl">${sec.subject}</div>
         </a>
       `).join('')}
     </div>
   `).join('');
 }
 
-// ---- TIMER ----
-function updateTimerDisplay() {
-  const m = Math.floor(timerSeconds / 60);
-  const s = timerSeconds % 60;
-  document.getElementById('timer-display').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  const circ = 2 * Math.PI * 88;
-  const offset = circ * (1 - timerSeconds / totalTimerSeconds);
-  document.getElementById('timer-arc').style.strokeDashoffset = circ - offset;
-  const labels = { work:'Work Session 🍅', short:'Short Break ☕', long:'Long Break 🛌' };
-  document.getElementById('timer-mode-label').textContent = labels[timerMode];
-  const h = Math.floor(todayTotalSeconds / 3600);
-  const mm = Math.floor((todayTotalSeconds % 3600) / 60);
-  document.getElementById('today-hours').textContent = h;
-  document.getElementById('today-mins').textContent = mm;
-  document.getElementById('today-sessions').textContent = pomodoroCount;
-  // sessions dots
-  const dots = document.getElementById('session-dots');
-  if (dots) {
-    let d = '';
-    for (let i = 0; i < 4; i++) d += `<div class="session-dot ${i < pomodoroCount % 4 ? 'done' : ''}"></div>`;
-    dots.innerHTML = d;
-  }
+// ──────── TIMER ────────
+function updTimer() {
+  const m=Math.floor(timerSec/60), s=timerSec%60;
+  const el=document.getElementById('timer-disp');
+  if(el) el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const circ=2*Math.PI*86;
+  const arc=document.getElementById('t-arc');
+  if(arc) arc.style.strokeDashoffset=(circ*(1-timerSec/totalSec)).toString();
+  const labels={work:'WORK SESSION',short:'SHORT BREAK',long:'LONG BREAK'};
+  const st=document.getElementById('timer-state');
+  if(st) st.textContent=labels[timerMode];
+  const th=document.getElementById('t-h');const tm=document.getElementById('t-m');const ts=document.getElementById('t-s');
+  if(th) th.textContent=Math.floor(todaySec/3600);
+  if(tm) tm.textContent=Math.floor((todaySec%3600)/60);
+  if(ts) ts.textContent=pomCount;
+  const pd=document.getElementById('p-dots');
+  if(pd){ let h=''; for(let i=0;i<4;i++) h+=`<div class="p-dot ${i<pomCount%4?'done':''}"></div>`; pd.innerHTML=h; }
 }
-
 function toggleTimer() {
-  const btn = document.getElementById('timer-start-btn');
-  if (timerRunning) {
-    clearInterval(timerInterval);
-    timerRunning = false;
-    btn.textContent = '▶ เริ่ม';
+  const btn=document.getElementById('t-start');
+  if(timerRunning) {
+    clearInterval(timerIv); timerRunning=false;
+    if(btn) btn.textContent='Start';
   } else {
-    timerRunning = true;
-    btn.textContent = '⏸ หยุด';
-    timerInterval = setInterval(() => {
-      timerSeconds--;
-      if (timerMode === 'work') todayTotalSeconds++;
-      if (timerSeconds <= 0) {
-        clearInterval(timerInterval);
-        timerRunning = false;
-        btn.textContent = '▶ เริ่ม';
-        if (timerMode === 'work') pomodoroCount++;
-        saveTimerState();
-        const next = timerMode === 'work' ? (pomodoroCount % 4 === 0 ? 'long' : 'short') : 'work';
-        alert(timerMode === 'work' ? '🍅 เสร็จแล้ว! พักเลย' : '☕ หมดเวลาพัก! กลับมาอ่านกัน');
-        setMode(next, document.getElementById('mode-'+next));
+    timerRunning=true;
+    if(btn) btn.textContent='Pause';
+    timerIv=setInterval(()=>{
+      timerSec--;
+      if(timerMode==='work') todaySec++;
+      if(timerSec<=0) {
+        clearInterval(timerIv); timerRunning=false;
+        if(timerMode==='work') pomCount++;
+        if(btn) btn.textContent='Start';
+        const nxt=timerMode==='work'?(pomCount%4===0?'long':'short'):'work';
+        alert(timerMode==='work'?'Session complete — take a break.':'Break over — back to work.');
+        setMode(nxt,document.getElementById('mb-'+nxt));
         return;
       }
-      saveTimerState();
-      updateTimerDisplay();
-    }, 1000);
+      updTimer();
+    },1000);
   }
 }
-
 function resetTimer() {
-  clearInterval(timerInterval);
-  timerRunning = false;
-  timerSeconds = totalTimerSeconds;
-  document.getElementById('timer-start-btn').textContent = '▶ เริ่ม';
-  updateTimerDisplay();
+  clearInterval(timerIv); timerRunning=false;
+  timerSec=totalSec;
+  const btn=document.getElementById('t-start');
+  if(btn) btn.textContent='Start';
+  updTimer();
+}
+function setMode(mode,btn) {
+  clearInterval(timerIv); timerRunning=false;
+  timerMode=mode; timerSec=MODES[mode]; totalSec=MODES[mode];
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const sb=document.getElementById('t-start');
+  if(sb) sb.textContent='Start';
+  updTimer();
 }
 
-function setMode(mode, btn) {
-  clearInterval(timerInterval);
-  timerRunning = false;
-  timerMode = mode;
-  timerSeconds = MODES[mode];
-  totalTimerSeconds = MODES[mode];
-  document.getElementById('timer-start-btn').textContent = '▶ เริ่ม';
-  document.querySelectorAll('[id^="mode-"]').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  updateTimerDisplay();
-}
-
-// ---- STATS ----
-const dailyHours = [3.5, 5, 4, 6, 4.5, 7, 5.5];
-const weeklyHours = [28, 32, 25, 35];
-const dayLabels = ['จ','อ','พ','พฤ','ศ','ส','อา'];
-const weekLabels = ['W1','W2','W3','W4'];
-
+// ──────── STATS ────────
+const dailyH=[3.5,5,4,6,4.5,7,5.5];
+const weekH=[28,32,25,35];
+const dLbls=['จ','อ','พ','พฤ','ศ','ส','อา'];
+const wLbls=['W1','W2','W3','W4'];
 function renderStats() {
-  const dc = document.getElementById('daily-chart');
-  const wc = document.getElementById('weekly-chart');
-  if (!dc || !wc) return;
-  const maxD = Math.max(...dailyHours);
-  const maxW = Math.max(...weeklyHours);
-  dc.innerHTML = dailyHours.map((h,i) => `
-    <div class="bar-item">
-      <div class="bar" style="height:${Math.round((h/maxD)*70)+4}px" title="${h}ชม."></div>
-      <div class="bar-label">${dayLabels[i]}</div>
-    </div>
-  `).join('');
-  wc.innerHTML = weeklyHours.map((h,i) => `
-    <div class="bar-item">
-      <div class="bar" style="height:${Math.round((h/maxW)*70)+4}px" title="${h}ชม."></div>
-      <div class="bar-label">${weekLabels[i]}</div>
-    </div>
-  `).join('');
+  const dc=document.getElementById('chart-daily');
+  const wc=document.getElementById('chart-weekly');
+  if(dc){ const mx=Math.max(...dailyH); dc.innerHTML=dailyH.map((h,i)=>`<div class="b-col"><div class="b-bar" style="height:${4+Math.round((h/mx)*64)}px" title="${h}h"></div><div class="b-lbl">${dLbls[i]}</div></div>`).join(''); }
+  if(wc){ const mx=Math.max(...weekH); wc.innerHTML=weekH.map((h,i)=>`<div class="b-col"><div class="b-bar" style="height:${4+Math.round((h/mx)*64)}px" title="${h}h"></div><div class="b-lbl">${wLbls[i]}</div></div>`).join(''); }
 }
-
-function renderNotifications() {
-  const el = document.getElementById('notif-list');
-  if (!el) return;
-  const now = new Date();
-  const daysToTPAT = Math.max(0, Math.floor((TCAS_DATES.tpat1 - now) / 86400000));
-  el.innerHTML = `
-    <div class="notif-item">
-      <div class="notif-icon green">📚</div>
-      <div class="notif-body">
-        <div class="notif-title">วันนี้ต้องอ่าน: ชีววิทยา + เคมี</div>
-        <div class="notif-desc">ตามแผน: ชีววิทยาบท Genetics + เคมีหัวข้อ Electrochem</div>
-      </div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-icon yellow">⏰</div>
-      <div class="notif-body">
-        <div class="notif-title">เหลืออีก ${daysToTPAT} วัน ก่อนสอบ TPAT1</div>
-        <div class="notif-desc">อ่านหนังสือให้ครบตามเป้า ยังเหลือ 885 ชั่วโมง</div>
-      </div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-icon green">✅</div>
-      <div class="notif-body">
-        <div class="notif-title">Progress ชีววิทยา 63% (10/16 บท)</div>
-        <div class="notif-desc">เหลืออีก 6 บท: Evolution, Ecology, Plant, Animal, Nervous, Endocrine</div>
-      </div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-icon red">🎯</div>
-      <div class="notif-body">
-        <div class="notif-title">เป้าหมายรายสัปดาห์: 30 ชั่วโมง</div>
-        <div class="notif-desc">อ่านไปแล้ว 18 ชั่วโมง เหลืออีก 12 ชั่วโมง</div>
-      </div>
-    </div>
+function renderNotifs() {
+  const el=document.getElementById('notif-list');
+  if(!el) return;
+  const now=Date.now();
+  const d=Math.max(0,Math.floor((TCAS.tpat1-now)/86400000));
+  el.innerHTML=`
+    <div class="notif-item"><span class="notif-tag green">Today</span><div class="notif-body"><div class="notif-title">วันนี้ต้องอ่าน — ชีววิทยา + เคมี</div><div class="notif-desc">Bio: Genetics / Chem: Electrochemistry</div></div></div>
+    <div class="notif-item"><span class="notif-tag yellow">Countdown</span><div class="notif-body"><div class="notif-title">TPAT1 อีก ${d} วัน</div><div class="notif-desc">เหลือเวลาอ่านหนังสืออีก ${d} วัน — เป้าหมาย 885 ชั่วโมง</div></div></div>
+    <div class="notif-item"><span class="notif-tag green">Progress</span><div class="notif-body"><div class="notif-title">ชีววิทยา 63% — 10/16 บท</div><div class="notif-desc">เหลือ: Evolution, Ecology, Plant, Animal, Nervous, Endocrine</div></div></div>
+    <div class="notif-item"><span class="notif-tag red">Weekly Goal</span><div class="notif-body"><div class="notif-title">เป้าสัปดาห์ 30 ชั่วโมง — ทำได้ 18h</div><div class="notif-desc">เหลืออีก 12 ชั่วโมงในสัปดาห์นี้</div></div></div>
   `;
 }
 
-function editGoal() {
-  const val = prompt('ตั้งเป้าหมายรวม (ชั่วโมง):','1200');
-  if (!val || isNaN(+val)) return;
-  const target = +val;
-  const current = 315;
-  const remaining = Math.max(0, target - current);
-  const pct = Math.min(100, Math.round((current/target)*100));
-  document.getElementById('goal-target').textContent = target;
-  document.getElementById('goal-remaining').textContent = remaining;
-  document.getElementById('goal-bar-fill').style.width = pct+'%';
-  document.getElementById('goal-pct').textContent = pct+'% สำเร็จ';
-  document.getElementById('goal-target-label').textContent = target;
-}
-
-// ---- INIT ----
-loadState();
-updateCountdowns();
-setInterval(updateCountdowns, 30000);
-renderDashboard();
-renderDailySchedule();
-renderWeeklyTable();
+// ──────── INIT ────────
+renderDash();
+renderDaily();
+renderWeekly();
 renderChecklist();
-renderExamSchedule();
-renderYoutube();
+renderSchedule();
+renderYt();
 renderStats();
-renderNotifications();
-updateTimerDisplay();
+renderNotifs();
+updTimer();
 </script>
 </body>
 </html>
